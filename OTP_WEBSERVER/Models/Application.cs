@@ -26,15 +26,21 @@ namespace OTP_WEBSERVER.Models
             };
         }
 
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "SecretKey is neccesary"]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Secret Key is neccesary")]
         [MaxLength(16)]
         public string SecretKey { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Shared Key is neccesary")]
+        [MaxLength(16)]
+        public string SharedKey { get; set; }
 
         public OtpHashMode HashMode { get; set; }
 
         [Required]
+        [Range(6, 32)]
         public int Size { get; set; }
 
         public ObjectId User_Id { get; set; }

@@ -177,12 +177,12 @@ namespace OTP_WEBSERVER.Models
             }
         }
 
-        public async Task<bool> CheckPassword(string username, string password)
+        public async Task<User> CheckPassword(string username, string password)
         {
             try
             {
                 var result = await _context.Users.FindAsync(x => (x.Username == username || x.Email == username) && x.Password == password);
-                return result.Any();
+                return result.FirstOrDefault();
             }
             catch (Exception ex)
             {

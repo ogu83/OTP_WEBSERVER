@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using OTP_WEBSERVER.Models;
 using OtpNet;
 
@@ -15,10 +16,15 @@ namespace OTP_WEBSERVER.Controllers
     public class HomeController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IApplicationRepository _applicationRepository;
 
-        public HomeController(IUserRepository userRepository)
+        public HomeController(
+            IUserRepository userRepository,
+            IApplicationRepository applicationRepository
+            )
         {
             _userRepository = userRepository;
+            _applicationRepository = applicationRepository;
         }
 
         [HttpGet]
@@ -42,11 +48,15 @@ namespace OTP_WEBSERVER.Controllers
         {
             try
             {
-                var isOK = await _userRepository.CheckPassword(dto.Username, dto.Password);
-                if (!isOK)
+                var user = await _userRepository.CheckPassword(dto.Username, dto.Password);
+                if (user == null)
                     throw new Exception("Invalid Password");
 
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, dto.Username) };
+                var claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                };
                 var userIdentity = new ClaimsIdentity(claims, "login");
                 var principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(principal);
@@ -59,11 +69,20 @@ namespace OTP_WEBSERVER.Controllers
             }
         }
 
-        public IActionResult Admin()
-        {
+        public async Task<IActionResult> Admin()
+        {            
+            var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            var userBsonId = ObjectId.Parse(userid);
             var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             ViewData["Username"] = name;
-            return View();
+
+            var userApps = await _applicationRepository.GetUsersApplications(userBsonId);
+
+            var model = new AdminDto
+            {
+                Applications = userApps
+            };
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

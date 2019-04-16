@@ -12,9 +12,7 @@ namespace OTP_WEBSERVER.Models
         Task AddUser(User user);
         Task<bool> UpdateUser(User user);
         Task<bool> DeleteUser(ObjectId id, bool DeletePermanent = false);
-        Task<bool> CheckPassword(string username, string password);
+        Task<User> CheckPassword(string username, string password);
         Task<string> InitiateDb();                       
     }
-
-
 }

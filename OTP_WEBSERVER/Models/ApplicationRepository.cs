@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -68,11 +69,26 @@ namespace OTP_WEBSERVER.Models
             }
         }
 
+        public async Task<IEnumerable<Application>> GetUsersApplications(ObjectId userId, bool includeDeleted = false)
+        {
+            try
+            {
+                if (!includeDeleted)
+                    return (await _context.Applications.FindAsync(x => x.IsDeleted == false && x.User_Id == userId)).ToEnumerable();
+                else
+                    return (await _context.Applications.FindAsync(x => x.User_Id == userId)).ToEnumerable();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<bool> Update(Application a)
         {
             try
             {
-                var filter = Builders<User>.Filter.Eq(s => s.Id, a.Id);
+                var filter = Builders<Application>.Filter.Eq(s => s.Id, a.Id);
                 var actionResult = await _context.Applications.ReplaceOneAsync(filter, a);
                 return actionResult.IsAcknowledged && actionResult.ModifiedCount > 0;
             }

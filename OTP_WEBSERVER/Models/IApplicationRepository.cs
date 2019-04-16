@@ -10,5 +10,6 @@ namespace OTP_WEBSERVER.Models
         Task Add(Application a);
         Task<bool> Update(Application a);
         Task<bool> Delete(ObjectId id, bool DeletePermanent = false);
+        Task<IEnumerable<Application>> GetUsersApplications(ObjectId userId, bool includeDeleted = false);
     }
 }
