@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "OTP SERVER";
+}
+@model LoginDto;
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>OTP Web Server Administration</h2>
+        <ul>
+            <li>Nice and easy two factor authentication for banks</li>
+            <li>Horizontaly Scalable</li>
+            <li>Cost Efficient</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2>Overview</h2>
+        <ul>
+            <li>SHA1 OTP generator</li>
+            <li>SHA256 OTP generator</li>
+            <li>SHA521 OTP generator</li>
+            <li>QR Code OTP generator</li>
+            <li>Hidden OTP generator (Confirm your web access via Mobile App)</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2>Administation</h2>
+        @if (!(bool)ViewData["db_already_set"])
+        {
+            <div class="alert alert-warning">
+                @Html.ActionLink("Click for setup DB", "Index", "Setup")
+            </div>
+        }
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Username", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        }
+    </div>
+</div>
