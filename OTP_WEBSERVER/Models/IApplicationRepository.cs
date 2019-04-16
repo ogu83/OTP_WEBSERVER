@@ -6,6 +6,7 @@ namespace OTP_WEBSERVER.Models
 {
     public interface IApplicationRepository
     {
+        Task<Application> Get(string sharedKey, bool includeDeleted = false);
         Task<Application> Get(ObjectId id, bool includeDeleted = false);
         Task Add(Application a);
         Task<bool> Update(Application a);

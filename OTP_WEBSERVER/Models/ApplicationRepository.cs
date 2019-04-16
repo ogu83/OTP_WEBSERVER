@@ -17,10 +17,26 @@ namespace OTP_WEBSERVER.Models
             _context = new DBContext(settings);
         }
 
+        private async Task validate(Application a)
+        {
+            if (string.IsNullOrWhiteSpace(a.Name))
+                throw new ArgumentException("Name required");
+            else if (string.IsNullOrWhiteSpace(a.SharedKey))
+                throw new ArgumentException("SharedKey required");
+            else if (string.IsNullOrWhiteSpace(a.SecretKey))
+                throw new ArgumentException("SecretKey");
+
+            var sharedKeyApp = await Get(a.SharedKey);
+            if (sharedKeyApp != null)
+                if (sharedKeyApp.Id != sharedKeyApp.Id)
+                    throw new ArgumentException("SharedKey already exists");
+        }
+
         public async Task Add(Application a)
         {
             try
             {
+                await validate(a);
                 a.UpdatedOn = DateTime.Now;
                 await _context.Applications.InsertOneAsync(a);
             }
@@ -70,6 +86,21 @@ namespace OTP_WEBSERVER.Models
             }
         }
 
+        public async Task<Application> Get(string sharedKey, bool includeDeleted = false)
+        {
+            try
+            {
+                if (!includeDeleted)
+                    return (await _context.Applications.FindAsync(x => x.IsDeleted == false && x.SharedKey == sharedKey)).FirstOrDefault();
+                else
+                    return (await _context.Applications.FindAsync(x => x.SharedKey == sharedKey)).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<IEnumerable<Application>> GetUsersApplications(ObjectId userId, bool includeDeleted = false)
         {
             try
@@ -88,7 +119,8 @@ namespace OTP_WEBSERVER.Models
         public async Task<bool> Update(Application a)
         {
             try
-            {                
+            {
+                await validate(a);
                 a.UpdatedOn = DateTime.Now;
                 var filter = Builders<Application>.Filter.Eq(s => s.Id, a.Id);
                 var actionResult = await _context.Applications.ReplaceOneAsync(filter, a);

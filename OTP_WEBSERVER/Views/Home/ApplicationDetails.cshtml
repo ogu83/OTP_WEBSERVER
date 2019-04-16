@@ -5,6 +5,7 @@
 }
 
 <h2>Application Details</h2>
+@Html.TextBoxFor(m=>m.Id)
 <div class="row">
     <div class="col-md-6">
         @if (Model.Id == ObjectId.Empty)
@@ -36,6 +37,23 @@
                 @Html.LabelFor(m => m.Size)
                 @Html.EditorFor(model => model.Size, new { htmlAttributes = new { type = "number", min = "6", max = "32", @class = "form-control" } })
                 @Html.ValidationMessageFor(m => m.Size)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Step)
+                @Html.EditorFor(model => model.Step, new { htmlAttributes = new { type = "number", min = "10", max = "900", step="10", @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Size)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.HashMode)
+                @Html.DropDownListFor(
+               model => model.HashMode,
+               Enum.GetValues(typeof(OtpNet.OtpHashMode))
+               .Cast<OtpNet.OtpHashMode>()
+               .Select(v => new SelectListItem{
+                   Text = v.ToString(),
+                   Value = ((int)v).ToString()
+               }), null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.HashMode)
             </div>
             @if (!string.IsNullOrWhiteSpace((string)ViewData["Message"]))
             {

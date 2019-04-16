@@ -1,4 +1,7 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using OTP_WEBSERVER.Helpers;
 using OtpNet;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -23,13 +26,14 @@ namespace OTP_WEBSERVER.Models
                 SecretKey = RandomString(16),
                 SharedKey = RandomString(16),
                 HashMode = OtpHashMode.Sha512,
-                Size = 6
+                Size = 6,
+                Step = 60 * 2
             };
         }
 
         [MaxLength(50)]
-        [MinLength(3)]        
-        [Display(Name="Name")]
+        [MinLength(3)]
+        [Display(Name = "Name")]
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
@@ -43,7 +47,7 @@ namespace OTP_WEBSERVER.Models
         [Display(Name = "Shared Key")]
         public string SharedKey { get; set; }
 
-        [Display(Name = "Hash Mode")]
+        [Display(Name = "Hash")]
         public OtpHashMode HashMode { get; set; }
 
         [Required]
@@ -51,6 +55,12 @@ namespace OTP_WEBSERVER.Models
         [Display(Name = "Otp Length")]
         public int Size { get; set; }
 
-        public ObjectId User_Id { get; set; }        
+        [JsonIgnore]
+        public ObjectId User_Id { get; set; }
+
+        [Required]
+        [Range(10, 15 * 60)]
+        [Display(Name = "Expire in Seconds")]
+        public int Step { get; set; }
     }
 }

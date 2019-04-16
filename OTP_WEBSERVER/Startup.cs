@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OTP_WEBSERVER.Helpers;
 using OTP_WEBSERVER.Models;
 
 namespace OTP_WEBSERVER
@@ -28,10 +29,15 @@ namespace OTP_WEBSERVER
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.Converters.Add(new ObjectIdJsonConverter())
+                );                
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/Home/Index/";                
+                options.LoginPath = "/Home/Index/";
             });
 
             services.Configure<Settings>(options =>
@@ -68,7 +74,7 @@ namespace OTP_WEBSERVER
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });            
+            });
         }
     }
 }

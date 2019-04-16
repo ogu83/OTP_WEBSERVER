@@ -28,13 +28,19 @@ namespace OTP_WEBSERVER.Models
             if (string.IsNullOrWhiteSpace(user.Username))
                 throw new ArgumentException("Username required");
             else if (string.IsNullOrWhiteSpace(user.Email))
-                throw new ArgumentException("Email required");
-            else if (await GetUser(user.Username) != null)
-                throw new ArgumentException("Username already exists");
-            else if (await GetUser(user.Email) != null)
-                throw new ArgumentException("Email already exists");
+                throw new ArgumentException("Email required");            
             else if (!IsValidEmail(user.Email))
                 throw new ArgumentException("Email is not valid");
+
+            var usernameUser = await GetUser(user.Username);
+            if (usernameUser != null)            
+                if (usernameUser.Id != user.Id)
+                    throw new ArgumentException("Username already exists");
+
+            var emailUser = await GetUser(user.Email);
+            if (emailUser != null)
+                if (emailUser.Id != user.Id)
+                    throw new ArgumentException("Email already exists");
         }
 
         private bool IsValidEmail(string email)

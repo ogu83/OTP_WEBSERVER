@@ -108,27 +108,39 @@ namespace OTP_WEBSERVER.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ApplicationDetails(Application model)
+        public async Task<IActionResult> ApplicationDetails(string id, Application model)
         {
+            var bsonId = ObjectId.Parse(id);
             var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
             var userBsonId = ObjectId.Parse(userid);
             var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             ViewData["Username"] = name;
 
-            if (!TryValidateModel(model))
+            var oldApp = await _applicationRepository.Get(bsonId);
+            if (oldApp.User_Id != userBsonId)
+            {
+                ViewData["Message"] = "Access Denied! You are not  owner of this application";
+                ViewData["Success"] = false;
+            }
+            else if (!TryValidateModel(model))
             {
                 ViewData["Message"] = "Not Saved! Please solve validation errors in the form.";
                 ViewData["Success"] = false;
             }
             else
-
             {
                 ViewData["Message"] = "Saved";
                 ViewData["Success"] = true;
 
                 model.User_Id = userBsonId;
+                model.Id = bsonId;
 
-                await _applicationRepository.Add(model);
+                if (model.Id == ObjectId.Empty)
+                    await _applicationRepository.Add(model);
+                else
+                {
+                    await _applicationRepository.Update(model);
+                }
             }
 
             return View(model);

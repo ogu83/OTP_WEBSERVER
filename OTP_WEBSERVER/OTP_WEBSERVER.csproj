@@ -15,4 +15,8 @@
     <PackageReference Include="Otp.NET" Version="1.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Api\Controllers\" />
+  </ItemGroup>
+
 </Project>
