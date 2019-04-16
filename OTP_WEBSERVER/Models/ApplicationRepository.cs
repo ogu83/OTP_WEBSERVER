@@ -21,6 +21,7 @@ namespace OTP_WEBSERVER.Models
         {
             try
             {
+                a.UpdatedOn = DateTime.Now;
                 await _context.Applications.InsertOneAsync(a);
             }
             catch (Exception ex)
@@ -87,7 +88,8 @@ namespace OTP_WEBSERVER.Models
         public async Task<bool> Update(Application a)
         {
             try
-            {
+            {                
+                a.UpdatedOn = DateTime.Now;
                 var filter = Builders<Application>.Filter.Eq(s => s.Id, a.Id);
                 var actionResult = await _context.Applications.ReplaceOneAsync(filter, a);
                 return actionResult.IsAcknowledged && actionResult.ModifiedCount > 0;

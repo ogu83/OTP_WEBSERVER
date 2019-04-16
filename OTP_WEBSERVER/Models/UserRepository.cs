@@ -87,6 +87,7 @@ namespace OTP_WEBSERVER.Models
         {
             try
             {
+                user.UpdatedOn = DateTime.Now;
                 await validateUser(user);
                 await _context.Users.InsertOneAsync(user);
             }
@@ -166,6 +167,7 @@ namespace OTP_WEBSERVER.Models
         {
             try
             {
+                user.UpdatedOn = DateTime.Now;
                 await validateUser(user);
                 var filter = Builders<User>.Filter.Eq(s => s.Id, user.Id);
                 var actionResult = await _context.Users.ReplaceOneAsync(filter, user);
@@ -213,10 +215,10 @@ namespace OTP_WEBSERVER.Models
                     return "Database setup completed";
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
     }
 }
