@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": "8ac14c1af4522bdb23edd3969a56073796f7277e"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "OtpTests/1.0.0": {
+        "dependencies": {
+          "Otp.NET": "1.2.1"
+        },
+        "runtime": {
+          "OtpTests.dll": {}
+        }
+      },
+      "Otp.NET/1.2.1": {
+        "runtime": {
+          "lib/netstandard1.3/Otp.NET.dll": {
+            "assemblyVersion": "1.2.1.0",
+            "fileVersion": "1.2.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OtpTests/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Otp.NET/1.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hY0TRWd7Ds6VehTiRbGUxlTqjKfJHf/GALoamv43NkTQ4P1jTgRybaNulDGBe2QB2V/gWTKSNHVi9c0bK/73FQ==",
+      "path": "otp.net/1.2.1",
+      "hashPath": "otp.net.1.2.1.nupkg.sha512"
+    }
+  }
+}

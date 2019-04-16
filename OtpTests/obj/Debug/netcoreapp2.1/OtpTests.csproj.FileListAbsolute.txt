@@ -1,0 +1,11 @@
+D:\OTP_WEBSERVER\OtpTests\bin\Debug\netcoreapp2.1\OtpTests.deps.json
+D:\OTP_WEBSERVER\OtpTests\bin\Debug\netcoreapp2.1\OtpTests.runtimeconfig.json
+D:\OTP_WEBSERVER\OtpTests\bin\Debug\netcoreapp2.1\OtpTests.runtimeconfig.dev.json
+D:\OTP_WEBSERVER\OtpTests\bin\Debug\netcoreapp2.1\OtpTests.dll
+D:\OTP_WEBSERVER\OtpTests\obj\Debug\netcoreapp2.1\OtpTests.csprojAssemblyReference.cache
+D:\OTP_WEBSERVER\OtpTests\obj\Debug\netcoreapp2.1\OtpTests.csproj.CoreCompileInputs.cache
+D:\OTP_WEBSERVER\OtpTests\obj\Debug\netcoreapp2.1\OtpTests.AssemblyInfoInputs.cache
+D:\OTP_WEBSERVER\OtpTests\obj\Debug\netcoreapp2.1\OtpTests.AssemblyInfo.cs
+D:\OTP_WEBSERVER\OtpTests\bin\Debug\netcoreapp2.1\OtpTests.pdb
+D:\OTP_WEBSERVER\OtpTests\obj\Debug\netcoreapp2.1\OtpTests.dll
+D:\OTP_WEBSERVER\OtpTests\obj\Debug\netcoreapp2.1\OtpTests.pdb

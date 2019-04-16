@@ -14,6 +14,6 @@ namespace OTP_WEBSERVER.Models
         }
 
         public IMongoCollection<User> Users { get { return _database.GetCollection<User>("User"); } }
-        public IMongoCollection<Application> Applications { get { return _database.GetCollection<Application>("Application"); } }
+        public IMongoCollection<Application> Applications { get { return _database.GetCollection<Application>("Application"); } }        
     }
 }
