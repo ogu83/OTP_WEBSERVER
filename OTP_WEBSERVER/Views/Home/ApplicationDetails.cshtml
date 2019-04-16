@@ -1,0 +1,66 @@
+﻿@using MongoDB.Bson
+@model Application
+@{
+    ViewData["Title"] = "ApplicationDetails";
+}
+
+<h2>Application Details</h2>
+<div class="row">
+    <div class="col-md-6">
+        @if (Model.Id == ObjectId.Empty)
+        {
+            <h3>Add New Application</h3>
+        }
+        else
+        {
+            <h3>Edit Application</h3>
+        }
+        @using (Html.BeginForm("ApplicationDetails", "Home", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @placeholder = "Application Name", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SecretKey)
+                @Html.TextBoxFor(m => m.SecretKey, new { @placeholder = "Secret Key", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SecretKey)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SharedKey)
+                @Html.TextBoxFor(m => m.SharedKey, new { @placeholder = "Secret Key", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.SharedKey)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Size)
+                @Html.EditorFor(model => model.Size, new { htmlAttributes = new { type = "number", min = "6", max = "32", @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Size)
+            </div>
+            @if (!string.IsNullOrWhiteSpace((string)ViewData["Message"]))
+            {
+                if ((bool)ViewData["Success"])
+                {
+                    <div class="alert alert-success">
+                        @ViewData["Message"]
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["Message"]
+                    </div>
+                }
+            }
+            <div class="btn-group">
+                <button type="submit" class="btn btn-success">Save</button>
+                @if (Model.Id != ObjectId.Empty)
+                {
+                    <button class="btn btn-danger" onclick="location.href='@Url.Action("DeleteApplication", "Home", new { @id = Model.Id.ToString() })';return false;">Delete</button>
+                }
+                <button class="btn btn-info" onclick="location.href='@Url.Action("Admin", "Home", new { @id =0 })';return false;">Close</button>
+            </div>
+        }
+    </div>
+</div>
+

@@ -8,12 +8,12 @@
 <div class="row">
     <div class="col-md-6">
         <h3>My Applications</h3>
-        <ul>
+        <ul class="list-group">
             @foreach (var a in Model.Applications)
             {
-                @Html.ActionLink(a.Name, "ApplicationDetails", "Home", new { @id = a.Id.ToString() })
+                <li class="list-group-item">@Html.ActionLink(a.Name, "ApplicationDetails", "Home", new { @id = a.Id.ToString() })</li>
             }
         </ul>        
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("ApplicationDetails", "Home", new { @id =0 })';return false;">Add New Application</button>    
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("ApplicationDetails", "Home", new { @id =0 })';return false;">Add New Application</button>
     </div>
 </div>

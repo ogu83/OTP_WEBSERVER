@@ -21,28 +21,36 @@ namespace OTP_WEBSERVER.Models
             {
                 Name = "New Application",
                 SecretKey = RandomString(16),
+                SharedKey = RandomString(16),
                 HashMode = OtpHashMode.Sha512,
                 Size = 6
             };
         }
 
         [MaxLength(50)]
+        [MinLength(3)]        
+        [Display(Name="Name")]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Secret Key is neccesary")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Secret Key is required")]
         [MaxLength(16)]
+        [Display(Name = "Secret Key")]
         public string SecretKey { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shared Key is neccesary")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Shared Key is required")]
         [MaxLength(16)]
+        [Display(Name = "Shared Key")]
         public string SharedKey { get; set; }
 
+        [Display(Name = "Hash Mode")]
         public OtpHashMode HashMode { get; set; }
 
         [Required]
         [Range(6, 32)]
+        [Display(Name = "Otp Length")]
         public int Size { get; set; }
 
-        public ObjectId User_Id { get; set; }
+        public ObjectId User_Id { get; set; }        
     }
 }

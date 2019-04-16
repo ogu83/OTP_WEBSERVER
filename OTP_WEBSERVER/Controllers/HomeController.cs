@@ -69,8 +69,9 @@ namespace OTP_WEBSERVER.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> Admin()
-        {            
+        {
             var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
             var userBsonId = ObjectId.Parse(userid);
             var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
@@ -83,6 +84,74 @@ namespace OTP_WEBSERVER.Controllers
                 Applications = userApps
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ApplicationDetails(string id)
+        {
+            var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            var userBsonId = ObjectId.Parse(userid);
+            var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            ViewData["Username"] = name;
+
+            Application model;
+            if (string.IsNullOrWhiteSpace(id) || id == "0")
+            {
+                model = Application.GenerateApplication();
+            }
+            else
+            {
+                var bsonId = ObjectId.Parse(id);
+                model = await _applicationRepository.Get(bsonId);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApplicationDetails(Application model)
+        {
+            var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            var userBsonId = ObjectId.Parse(userid);
+            var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            ViewData["Username"] = name;
+
+            if (!TryValidateModel(model))
+            {
+                ViewData["Message"] = "Not Saved! Please solve validation errors in the form.";
+                ViewData["Success"] = false;
+            }
+            else
+
+            {
+                ViewData["Message"] = "Saved";
+                ViewData["Success"] = true;
+
+                model.User_Id = userBsonId;
+
+                await _applicationRepository.Add(model);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteApplication(string id)
+        {
+            var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
+            var userBsonId = ObjectId.Parse(userid);
+            var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            ViewData["Username"] = name;
+
+            if (await _applicationRepository.Delete(ObjectId.Parse(id)))
+            {
+                return RedirectToAction("Admin");
+            }
+            else
+            {
+                ViewData["Message"] = "Not Deleted! Error Occured";
+                ViewData["Success"] = false;
+                return RedirectToAction("ApplicationDetails", new { id });
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
