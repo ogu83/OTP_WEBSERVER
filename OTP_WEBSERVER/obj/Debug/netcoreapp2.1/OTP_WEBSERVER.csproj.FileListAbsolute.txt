@@ -29,5 +29,5 @@ D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\OTP_WEBSERVER.pdb
 D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\OTP_WEBSERVER.csproj.CopyComplete
 D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\Razor\Views\Setup\Index.g.cshtml.cs
 D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\Razor\Views\Home\Admin.g.cshtml.cs
-D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\Razor\Views\Home\ApplicationDetails.g.cshtml.cs
+D:\OTP_WEBSERVER\OTP_WEBSERVER\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs

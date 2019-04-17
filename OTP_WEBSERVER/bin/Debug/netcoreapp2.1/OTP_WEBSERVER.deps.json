@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "3a5e0d12f6a1fe7af2629a40e5a95a079651f6eb"
+    "signature": "5d158beac8bd9eaea413b48b391209be931eb06e"
   },
   "compilationOptions": {
     "defines": [
@@ -30,7 +30,8 @@
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.0.2105168",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.1",
           "MongoDB.Driver": "2.8.0",
-          "Otp.NET": "1.2.1"
+          "Otp.NET": "1.2.1",
+          "jQuery": "3.3.1"
         },
         "runtime": {
           "OTP_WEBSERVER.dll": {}
@@ -53,6 +54,7 @@
           "lib/netstandard2.0/DnsClient.dll": {}
         }
       },
+      "jQuery/3.3.1": {},
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
       "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
         "dependencies": {
@@ -3821,6 +3823,13 @@
       "sha512": "sha512-UT54vUwsoDR7PP/tD195TVBQArpmFKi/Wo58b7noG24hVVyz2nraN22i+RNA6D0jkhQM3wQjL/IvGzsjKpRhJA==",
       "path": "dnsclient/1.2.0",
       "hashPath": "dnsclient.1.2.0.nupkg.sha512"
+    },
+    "jQuery/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Emsts1D6E2AgHVBm4cTD2dxoRyWVG+3zK1x8mYbf+k6aAArPTXHR2Ip++o1utlNbmYIzaPFnhGw3YDexp8PjlQ==",
+      "path": "jquery/3.3.1",
+      "hashPath": "jquery.3.3.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",

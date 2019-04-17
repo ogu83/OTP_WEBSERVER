@@ -51,7 +51,7 @@ namespace OTP_WEBSERVER.Models
         public OtpHashMode HashMode { get; set; }
 
         [Required]
-        [Range(6, 32)]
+        [Range(6, 16)]
         [Display(Name = "Otp Length")]
         public int Size { get; set; }
 

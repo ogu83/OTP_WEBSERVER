@@ -4,10 +4,66 @@
     ViewData["Title"] = "ApplicationDetails";
 }
 
+@section scripts
+    {
+    <script>
+        var getTotpUrl = '@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, "/api/Otp/GetTotp?sharedKey=07RMYNAEUZXV1OB8&userKey=", "")';
+        var validateTotpUrl = '@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, "/api/Otp/ValidateTotp?sharedKey=07RMYNAEUZXV1OB8", "")';
+        var userKey = "";
+        var sharedKey = '@Model.SharedKey';
+        var totp = "";
+
+        $(document).ready(function () {
+            updateTotpUrl();
+            updateValidateTotpUrl();
+        });
+
+        function updateTotpUrl() {
+            $("#txtGetTotpUrl").html(getTotpUrl + userKey);
+        }
+
+        function updateValidateTotpUrl() {
+            $("#txtValidateTotpUrl").html(validateTotpUrl + "&userKey=" + userKey + "&totp=" + totp);
+        }
+
+        function onTxtUserKeyChanged(e) {
+            userKey = $(e).val()
+            updateTotpUrl();
+        }
+
+        function onTxtTotpChanged(e) {
+            totp = $(e).val()
+            updateValidateTotpUrl();
+        }
+
+        function getTotp() {
+            var url = $("#txtGetTotpUrl").text();            
+            $.get(url, function (data) {
+                totp = data;
+                $("#txtTotp").val(totp);                
+                updateValidateTotpUrl();
+            });
+        }
+
+        function validateTotp() {
+            var url = $("#txtValidateTotpUrl").text();
+            $.get(url, function (validated) {                
+                if (validated) {
+                    var message = '<div class="alert alert-success alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Success!</strong> Validated</div>';
+                }
+                else {
+                    var message = '<div class="alert alert-danger alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Failed!</strong> Not Validated</div>';
+                }
+                $("#divValidated").html(message);
+            });
+        }
+
+    </script>
+}
+
 <h2>Application Details</h2>
-@Html.TextBoxFor(m=>m.Id)
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         @if (Model.Id == ObjectId.Empty)
         {
             <h3>Add New Application</h3>
@@ -30,17 +86,17 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.SharedKey)
-                @Html.TextBoxFor(m => m.SharedKey, new { @placeholder = "Secret Key", @class = "form-control" })
+                @Html.TextBoxFor(m => m.SharedKey, new { @placeholder = "Shared Key", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.SharedKey)
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Size)
-                @Html.EditorFor(model => model.Size, new { htmlAttributes = new { type = "number", min = "6", max = "32", @class = "form-control" } })
+                @Html.EditorFor(model => model.Size, new { htmlAttributes = new { type = "number", min = "6", max = "10", @class = "form-control" } })
                 @Html.ValidationMessageFor(m => m.Size)
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Step)
-                @Html.EditorFor(model => model.Step, new { htmlAttributes = new { type = "number", min = "10", max = "900", step="10", @class = "form-control" } })
+                @Html.EditorFor(model => model.Step, new { htmlAttributes = new { type = "number", min = "10", max = "900", step = "10", @class = "form-control" } })
                 @Html.ValidationMessageFor(m => m.Size)
             </div>
             <div class="form-group">
@@ -79,6 +135,40 @@
                 <button class="btn btn-info" onclick="location.href='@Url.Action("Admin", "Home", new { @id =0 })';return false;">Close</button>
             </div>
         }
+    </div>
+    <div class="col-md-8">
+        <h3>API</h3>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Get Time Based Otp
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="txtUserKey">User Unique Identifier (Optional)</label>
+                    <input id="txtUserKey" class="form-control" type="text" placeholder="Enter a user key" onchange="onTxtUserKeyChanged(this);" />
+                </div>                
+                <div class="form-group">
+                    <code id="txtGetTotpUrl"></code>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-info" onclick="getTotp();">Get</button>
+                </div>
+                <div class="form-group">
+                    <label for="txtTotp">Time Based Otp Key</label>
+                    <input id="txtTotp" class="form-control" type="text" placeholder="Get or enter totp key" onchange="onTxtTotpChanged(this);" />
+
+                </div>
+                <div class="form-group">
+                    <code id="txtValidateTotpUrl"></code>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-info" onclick="validateTotp();">Validate</button>
+                </div>
+                <div id="divValidated" class="form-group">
+
+                </div>                
+            </div>
+        </div>
     </div>
 </div>
 

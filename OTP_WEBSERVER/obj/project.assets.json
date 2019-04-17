@@ -14,6 +14,9 @@
           "lib/netstandard2.0/DnsClient.dll": {}
         }
       },
+      "jQuery/3.3.1": {
+        "type": "package"
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -4999,6 +5002,29 @@
         "lib/netstandard1.3/DnsClient.xml",
         "lib/netstandard2.0/DnsClient.dll",
         "lib/netstandard2.0/DnsClient.xml"
+      ]
+    },
+    "jQuery/3.3.1": {
+      "sha512": "Emsts1D6E2AgHVBm4cTD2dxoRyWVG+3zK1x8mYbf+k6aAArPTXHR2Ip++o1utlNbmYIzaPFnhGw3YDexp8PjlQ==",
+      "type": "package",
+      "path": "jquery/3.3.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery-3.3.1-vsdoc.js",
+        "Content/Scripts/jquery-3.3.1.js",
+        "Content/Scripts/jquery-3.3.1.min.js",
+        "Content/Scripts/jquery-3.3.1.min.map",
+        "Content/Scripts/jquery-3.3.1.slim.js",
+        "Content/Scripts/jquery-3.3.1.slim.min.js",
+        "Content/Scripts/jquery-3.3.1.slim.min.map",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-3.3.1.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.3.3.1.nupkg.sha512",
+        "jquery.nuspec"
       ]
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -13508,7 +13534,8 @@
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.0.2105168",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
       "MongoDB.Driver >= 2.8.0",
-      "Otp.NET >= 1.2.1"
+      "Otp.NET >= 1.2.1",
+      "jQuery >= 3.3.1"
     ]
   },
   "packageFolders": {
@@ -13583,6 +13610,10 @@
           "Otp.NET": {
             "target": "Package",
             "version": "[1.2.1, )"
+          },
+          "jQuery": {
+            "target": "Package",
+            "version": "[3.3.1, )"
           }
         },
         "imports": [

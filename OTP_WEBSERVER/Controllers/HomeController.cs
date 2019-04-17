@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using OTP_WEBSERVER.Models;
-using OtpNet;
 
 namespace OTP_WEBSERVER.Controllers
 {
