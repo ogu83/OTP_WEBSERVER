@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model User
+
+@section scripts
+    {
+    <script>
+        var isLoginSuccess = '@((bool)ViewData["Success"])'=="True" ? true : false;
+        var username = '@Model.Username';
+
+        $(document).ready(function () {
+            if (isLoginSuccess) {
+                setTimeout(function () {
+                    getIsAnyLoginRequest();
+                }, 1000)
+            }
+        });
+
+        function getIsAnyLoginRequest() {
+            var url = "/api/Login/IsAnyLoginRequest/?username=" + username;
+            $.get(url, function (data) {
+                if (data)
+                    console.log("there is a login request wait for confirmation");
+                else
+                    console.log("login request completed go to account page");
+            });
+            setTimeout(function () {
+                getIsAnyLoginRequest();
+            }, 1000)
+        }
+    </script>
+}
+<div class="row">
+    <div class="col-md-6">
+        <img src="~/images/gotham.png" />
+    </div>
+    <div class="col-md-6">
+        <blockquote>The bank that joker eventually try to rob</blockquote>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Username", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        }
+        @if (!string.IsNullOrEmpty((string)ViewData["Message"]))
+        {
+            @if ((bool)ViewData["Success"])
+            {
+                <div class="alert alert-warning">
+                    @((string)ViewData["Message"])
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success">
+                    @((string)ViewData["Message"])
+                </div>
+            }
+        }
+
+    </div>
+</div>
