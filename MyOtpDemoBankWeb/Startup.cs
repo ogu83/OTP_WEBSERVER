@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyOtpDemoBankWeb.Api;
 using MyOtpDemoBankWeb.Models;
 
 namespace MyOtpDemoBankWeb
@@ -36,6 +37,7 @@ namespace MyOtpDemoBankWeb
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<ApplicationDbContext>(context => { context.UseInMemoryDatabase("GothamBankDb"); });
+            services.AddHttpClient<LoginController>();
 
             services.Configure<OtpServerSettings>(options =>
             {

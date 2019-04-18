@@ -15,13 +15,6 @@ namespace MyOtpDemoBankWeb.Controllers
             initDb();
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            ViewData["Success"] = false;
-            return View(new User());
-        }
-
         private void initDb()
         {
             if (!_context.Users.Any())
@@ -33,6 +26,19 @@ namespace MyOtpDemoBankWeb.Controllers
                 });
                 _context.SaveChanges();
             }
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            ViewData["Success"] = false;
+            return View(new User());
+        }
+
+        [HttpGet]
+        public IActionResult Account()
+        {
+            return View();
         }
 
         [HttpPost]
