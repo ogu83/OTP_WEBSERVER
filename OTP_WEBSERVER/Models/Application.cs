@@ -59,7 +59,7 @@ namespace OTP_WEBSERVER.Models
         public ObjectId User_Id { get; set; }
 
         [Required]
-        [Range(10, 15 * 60)]
+        [Range(1, 15 * 60)]
         [Display(Name = "Expire in Seconds")]
         public int Step { get; set; }
     }

@@ -33,7 +33,8 @@ namespace MyOtpDemoBankWeb.Api
             var response = await client.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
-                var result = await response.Content.ReadAsAsync<string>();
+                //var result = await response.Content.ReadAsAsync<string>();
+                var result = await response.Content.ReadAsStringAsync();
                 return result;
             }
             else

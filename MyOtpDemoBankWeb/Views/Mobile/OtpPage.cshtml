@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Otp Page";
+}
+
+@section scripts
+    {
+    <script>
+        var username = '@(ViewData["username"].ToString())'
+        var totp = "";
+
+        $(document).ready(function () {
+            $("#divNoLoginRequest").show();
+            $("#divALoginRequest").hide();
+            setTimeout(function () {
+                getIsAnyLoginRequest();
+            }, 3000)
+        });
+
+        function getAnOtp() {
+            var url = "/api/Login/GetOtp/?username=" + username.replace('/"','');
+            $.get(url, function (data) {
+                totp = data;
+                $("#txtTotp").val(totp);
+                setTimeout(getAnOtp(), 3000);
+            });
+        }
+
+        function validateOtp() {
+            var url = "/api/Login/ValidateOtp/?username=" + username + "&totp=" + totp;
+            $.get(url, function (data) {
+
+            });
+        }
+
+        function getIsAnyLoginRequest() {
+            var url = "/api/Login/IsAnyLoginRequest/?username=" + username;
+            $.get(url, function (data) {
+                if (data) {
+                    $("#divNoLoginRequest").hide();
+                    $("#divALoginRequest").show();
+                    setTimeout(getAnOtp(), 3000);
+                }
+                else {
+                    $("#divNoLoginRequest").show();
+                    $("#divALoginRequest").hide();
+                }
+            });
+            setTimeout(function () {
+                getIsAnyLoginRequest();
+            }, 3000)
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div id="divNoLoginRequest" class="alert-info">
+            There is no login request right now.
+        </div>
+        <div id="divALoginRequest">
+            <div class="alert-success">
+                There is a login request, please confirm.
+            </div>
+            <div class="form-group">
+                <label for="txtTotp">One Time Password</label>
+                <input id="txtTotp" type="text" class="form-control" readonly />
+            </div>
+            <button class="btn btn-success btn-group-justified" onclick="validateOtp();">Confirm</button>
+        </div>
+    </div>
+</div>

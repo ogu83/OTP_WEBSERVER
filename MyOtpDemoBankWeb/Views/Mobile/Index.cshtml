@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model User
+
+<div class="row">
+    <div class="col-md-6 text-center">
+        <img src="~/images/gotham.png" />
+    </div>
+    <div class="col-md-6 text-center">
+        <h3 class="">Gotham Mobile</h3>
+        @using (Html.BeginForm("Index", "Mobile", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Username", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-primary btn-group-justified">Login</button>
+        }
+        @if (!string.IsNullOrEmpty((string)ViewData["Message"]))
+        {
+            @if ((bool)ViewData["Success"])
+            {
+                <div class="alert alert-warning">
+                    @((string)ViewData["Message"])
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success">
+                    @((string)ViewData["Message"])
+                </div>
+            }
+        }
+
+    </div>
+</div>

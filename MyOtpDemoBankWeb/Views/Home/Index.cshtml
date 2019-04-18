@@ -13,7 +13,7 @@
             if (isLoginSuccess) {
                 setTimeout(function () {
                     getIsAnyLoginRequest();
-                }, 1000)
+                }, 3000)
             }
         });
 
@@ -22,12 +22,14 @@
             $.get(url, function (data) {
                 if (data)
                     console.log("there is a login request wait for confirmation");
-                else
+                else {
+                    window.location.href = '@Url.Content("~/Home/Account/")';
+                }
                     console.log("login request completed go to account page");
             });
             setTimeout(function () {
                 getIsAnyLoginRequest();
-            }, 1000)
+            }, 3000)
         }
     </script>
 }
