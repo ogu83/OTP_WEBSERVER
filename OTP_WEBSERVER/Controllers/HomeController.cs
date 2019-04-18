@@ -109,14 +109,17 @@ namespace OTP_WEBSERVER.Controllers
         [HttpPost]
         public async Task<IActionResult> ApplicationDetails(string id, Application model)
         {
-            var bsonId = ObjectId.Parse(id);
+            ObjectId bsonId = ObjectId.Empty;
+            ObjectId.TryParse(id, out bsonId);
+
             var userid = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).SingleOrDefault();
             var userBsonId = ObjectId.Parse(userid);
             var name = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             ViewData["Username"] = name;
 
             var oldApp = await _applicationRepository.Get(bsonId);
-            if (oldApp.User_Id != userBsonId)
+
+            if (oldApp != null && oldApp.User_Id != userBsonId)
             {
                 ViewData["Message"] = "Access Denied! You are not  owner of this application";
                 ViewData["Success"] = false;

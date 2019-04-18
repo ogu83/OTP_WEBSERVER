@@ -60,7 +60,7 @@ using MyOtpDemoBankWeb.Models;
             WriteLiteral("\r\n<div class=\"row\">\r\n    <div class=\"col-md-6 text-center\">\r\n        ");
             EndContext();
             BeginContext(127, 33, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "776bd69ccd3443f796f11c1090e99775", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "24cda32bb011441a9f012115dc0089ca", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
