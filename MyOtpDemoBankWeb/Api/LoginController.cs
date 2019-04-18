@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
@@ -51,7 +50,7 @@ namespace MyOtpDemoBankWeb.Api
         {
             Disable_CertificateValidation();
             var url = $"{_otpOptions.Value.EndPoint}{_otpOptions.Value.Controller}{_otpOptions.Value.GetTOtpAction}?sharedKey={_otpOptions.Value.SharedKey}&userKey={username}";
-            var client = _clientFactory.CreateClient();
+            var client = _clientFactory.CreateClient();                        
             var response = await client.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
