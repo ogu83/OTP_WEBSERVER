@@ -3,11 +3,11 @@ yet another mobile, web two factor authentication solution. Web API and Admin Pa
 
 ## Demo Links (POC)
 
-[Admin](http://35.204.234.24/)
+[Admin](https://35.204.234.24/)
 
-[Gotham Bank Web](http://34.74.20.64/)
+[Gotham Bank Web](https://34.74.20.64/)
 
-[Gotham Bank Mobile](http://34.74.20.64/Mobile/)
+[Gotham Bank Mobile](https://34.74.20.64/Mobile/)
 
 ## Users
 
