@@ -7,10 +7,10 @@
 @section scripts
     {
     <script>
-        var getTotpUrl = '@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, "/api/Otp/GetTotp?sharedKey=07RMYNAEUZXV1OB8&userKey=", "")';
-        var validateTotpUrl = '@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, "/api/Otp/ValidateTotp?sharedKey=07RMYNAEUZXV1OB8", "")';
-        var userKey = "";
         var sharedKey = '@Model.SharedKey';
+        var getTotpUrl = '@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, $"/api/Otp/GetTotp?sharedKey={Model.SharedKey}&userKey=", "")';
+        var validateTotpUrl = '@string.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, $"/api/Otp/ValidateTotp?sharedKey={Model.SharedKey}", "")';
+        var userKey = "";        
         var totp = "";
 
         $(document).ready(function () {
