@@ -31,7 +31,7 @@ namespace MyOtpDemoBankWeb.Api
 
         //[Obsolete("Do not use this in Production code!!!", true)]
         static void Disable_CertificateValidation()
-        {
+        {           
             // Disabling certificate validation can expose you to a man-in-the-middle attack
             // which may allow your encrypted message to be read by an attacker
             // https://stackoverflow.com/a/14907718/740639
